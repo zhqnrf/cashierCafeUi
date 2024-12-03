@@ -1,155 +1,2219 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
-      rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="style.css" />
 
-    <title>Cashier | Fifteen Cafe</title>
-  </head>
-  <body>
-    <!-- SIDEBAR -->
-    <section id="sidebar">
-      <a href="#" class="brand">
-        <i class="bx bxs-store"></i>
-        <span class="text">Fifteen Cafe</span>
-      </a>
-      <ul class="side-menu top">
-        <li class="active">
-          <a href="#">
-            <i class="bx bxs-dashboard"></i>
-            <span class="text">Point Of Sale</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="bx bxs-doughnut-chart"></i>
-            <span class="text">Aktivitas</span>
-          </a>
-        </li>
-      </ul>
-      <ul class="side-menu">
-        <li>
-          <a href="#">
-            <i class="bx bxs-cog"></i>
-            <span class="text">Settings</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="logout">
-            <i class="bx bxs-log-out-circle"></i>
-            <span class="text">Logout</span>
-          </a>
-        </li>
-      </ul>
-    </section>
-    <section id="content">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+
+  <title>Cashier | Fifteen Cafe</title>
+</head>
+
+<body>
+  <section id="sidebar">
+    <a href="#" class="brand">
+      <i class="bx bxs-store"></i>
+      <span class="text">Fifteen Cafe</span>
+    </a>
+    <ul class="side-menu top">
+      <li>
+        <a href="#dashboard">
+          <i class='bx bx-tachometer'></i>
+          <span class="text">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="#quick-access">
+          <i class="bx bxs-dashboard"></i>
+          <span class="text">Point Of Sale</span>
+        </a>
+      </li>
+      <li class="active">
+        <a href="#today">
+          <i class="bx bxs-doughnut-chart"></i>
+          <span class="text">Aktivitas</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="side-menu down-side">
+      <li>
+        <a href="#settings" style="background: transparent">
+          <i class="bx bxs-cog"></i>
+          <span class="text">Settings</span>
+        </a>
+      </li>
+      <li>
+        <!-- Logout Button -->
+        <a class="logout" onclick="openLogoutPopup()">
+          <i class="bx bxs-log-out-circle"></i>
+          <span class="text">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+  <section id="content">
+    <main id="main-content">
+      <div id="settings" class="content-page hidden p-6 bg-white  rounded-md">
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+          <i class="bx bxs-cog text-gray-700"></i>
+          Settings
+        </h2>
+        <div class="overflow-y-auto max-h-[34rem] bg-white">
+          <!-- Profil Picture -->
+          <div class="mb-6 flex items-center gap-4">
+            <i class="bx bxs-camera text-gray-700 text-2xl"></i>
+            <div class="w-full">
+
+              <!-- Preview Gambar Bundar -->
+              <div class="w-24 h-24 rounded-full overflow-hidden mb-4">
+                <img id="profilePreview" src="https://via.placeholder.com/96" alt="Profile Preview"
+                  class="w-full h-full object-cover" />
+              </div>
+              <!-- Input File -->
+              <input type="file" id="profilePicture"
+                class="w-full border border-gray-300 rounded-lg px-4 py-2 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:bg-blue-500 file:text-white"
+                accept="image/*" onchange="previewProfilePicture(event)" />
+            </div>
+          </div>
+
+          <!-- Nama -->
+          <div class="mb-4 flex items-center gap-4">
+            <i class="bx bxs-user-circle text-gray-700 text-2xl"></i>
+            <div class="w-full">
+              <label for="name" class="block text-gray-600 font-semibold mb-1">Nama</label>
+              <input type="text" id="name" class="w-full border border-gray-300 rounded-lg px-4 py-2"
+                value="Nama User" />
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-4 flex items-center gap-4">
+            <i class="bx bxs-envelope text-gray-700 text-2xl"></i>
+            <div class="w-full">
+              <label for="email" class="block text-gray-600 font-semibold mb-1">Email</label>
+              <input type="email" id="email" class="w-full border border-gray-300 rounded-lg px-4 py-2"
+                value="user@example.com" />
+            </div>
+          </div>
+
+          <!-- Alamat -->
+          <div class="mb-4 flex items-center gap-4">
+            <i class="bx bxs-map text-gray-700 text-2xl"></i>
+            <div class="w-full">
+              <label for="address" class="block text-gray-600 font-semibold mb-1">Alamat</label>
+              <input type="text" id="address" class="w-full border border-gray-300 rounded-lg px-4 py-2"
+                value="Jl. Contoh Alamat No. 1" />
+            </div>
+          </div>
+
+          <!-- Outlet -->
+          <div class="mb-6 flex items-center gap-4">
+            <i class="bx bxs-store text-gray-700 text-2xl"></i>
+            <div class="w-full">
+              <label for="outlet" class="block text-gray-600 font-semibold mb-1">Outlet</label>
+              <select id="outlet" class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                <option selected>Outlet 1</option>
+                <option>Outlet 2</option>
+                <option>Outlet 3</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Jam Live -->
+          <div class="mb-4 flex items-center gap-4">
+            <i class="bx bxs-time text-gray-700 text-2xl"></i>
+            <div class="w-full">
+              <label class="block text-gray-600 font-semibold mb-1">Jam Live</label>
+              <p id="liveClock" class="text-lg font-bold text-blue-600">00:00:00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <script>
-        $(document).ready(function () {
-          // Inisialisasi sortable
-          $("#waiting-list").sortable({
-            placeholder:
-              "bg-blue-100 border-2 border-dashed border-blue-400 rounded-lg",
-            update: function (event, ui) {
-              console.log("Order updated");
-            },
-          });
-
-          checkEmptyList();
-
-          // Function untuk memeriksa dan menampilkan pesan jika list kosong
-          function checkEmptyList() {
-            if ($("#waiting-list .product-item:has(img)").length === 0) {
-              $("#empty-message").removeClass("hidden");
-            } else {
-              $("#empty-message").addClass("hidden");
-            }
-          }
-
-          // Contoh: hapus item dengan klik dua kali dan cek ulang list
-          $(".product-item").on("dblclick", function () {
-            $(this).remove();
-            checkEmptyList();
-          });
-        });
+        // Live Clock
+        function updateClock() {
+          const now = new Date();
+          const hours = String(now.getHours()).padStart(2, '0');
+          const minutes = String(now.getMinutes()).padStart(2, '0');
+          const seconds = String(now.getSeconds()).padStart(2, '0');
+          document.getElementById('liveClock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
       </script>
+      <div id="dashboard" class="content-page hidden">
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+          <i class="bx bx-tachometer text-gray-700"></i>
+          Dashboard
+        </h2>
+        <div class="overflow-y-auto max-h-[37rem]">
+          <!-- Stats Cards -->
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <!-- Jumlah Customer Hari Ini -->
+            <div class="bg-blue-100 p-4 rounded-lg shadow flex items-center">
+              <i class="bx bxs-user text-blue-500 text-3xl mr-4"></i>
+              <div>
+                <p class="text-lg font-semibold">Customer Hari Ini</p>
+                <p class="text-xl font-bold">50</p>
+              </div>
+            </div>
 
-      <main>
-        <div class="head-title">
-          <div class="left">
-            <h1>Dashboard</h1>
-            <ul class="breadcrumb">
-              <li>
-                <a href="#">Dashboard</a>
+            <!-- Jumlah Customer Bulan Ini -->
+            <div class="bg-green-100 p-4 rounded-lg shadow flex items-center">
+              <i class="bx bxs-group text-green-500 text-3xl mr-4"></i>
+              <div>
+                <p class="text-lg font-semibold">Customer Bulan Ini</p>
+                <p class="text-xl font-bold">1200</p>
+              </div>
+            </div>
+
+            <!-- Jumlah Produk Terjual Hari Ini -->
+            <div class="bg-yellow-100 p-4 rounded-lg shadow flex items-center">
+              <i class="bx bxs-shopping-bag text-yellow-500 text-3xl mr-4"></i>
+              <div>
+                <p class="text-lg font-semibold">Produk Terjual Hari Ini</p>
+                <p class="text-xl font-bold">75</p>
+              </div>
+            </div>
+
+            <!-- Jumlah Produk Terjual Bulan Ini -->
+            <div class="bg-red-100 p-4 rounded-lg shadow flex items-center">
+              <i class="bx bxs-store text-red-500 text-3xl mr-4"></i>
+              <div>
+                <p class="text-lg font-semibold">Produk Terjual Bulan Ini</p>
+                <p class="text-xl font-bold">2100</p>
+              </div>
+            </div>
+
+            <!-- Income Hari Ini -->
+            <div class="bg-purple-100 p-4 rounded-lg shadow flex items-center">
+              <i class="bx bxs-wallet text-purple-500 text-3xl mr-4"></i>
+              <div>
+                <p class="text-lg font-semibold">Income Hari Ini</p>
+                <p class="text-xl font-bold">Rp 5,000,000</p>
+              </div>
+            </div>
+
+            <!-- Income Bulan Ini -->
+            <div class="bg-indigo-100 p-4 rounded-lg shadow flex items-center">
+              <i class="bx bxs-dollar-circle text-indigo-500 text-3xl mr-4"></i>
+              <div>
+                <p class="text-lg font-semibold">Income Bulan Ini</p>
+                <p class="text-xl font-bold">Rp 150,000,000</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Produk Terlaris -->
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+              <i class="bx bxs-star text-yellow-500 text-2xl mr-2"></i>
+              Produk Terlaris
+            </h3>
+            <ul class="divide-y divide-gray-200">
+              <li class="py-2 flex justify-between">
+                <span>Americano</span>
+                <span>120 Terjual</span>
               </li>
-              <li><i class="bx bx-chevron-right"></i></li>
-              <li>
-                <a class="active" href="#">Home</a>
+              <li class="py-2 flex justify-between">
+                <span>Teh Tarik</span>
+                <span>100 Terjual</span>
+              </li>
+              <li class="py-2 flex justify-between">
+                <span>Latte</span>
+                <span>95 Terjual</span>
               </li>
             </ul>
           </div>
-          <a href="#" class="btn-download">
-            <i class="bx bxs-cloud-download"></i>
-            <span class="text">Download PDF</span>
-          </a>
         </div>
-        <main class="container mx-auto py-8">
-          <div id="waiting-list" class="grid grid-cols-4 gap-6">
-            <div
-              class="product-item p-4 rounded-lg shadow-md text-center"
-              data-id="1">
-              <img
-                src="img/people.png"
-                alt="Produk 1"
-                class="w-full h-32 object-cover rounded-md" />
-              <p class="mt-2 font-semibold">Produk 1</p>
+      </div>
+
+      <div id="quick-access" class="content-page hidden">
+        <div class="item flex container mx-auto">
+          <div id="category-grid" class="w-7/12 grid grid-cols-5 overflow-y-auto max-h-[41rem] ">
+            <div class="product-item relative rounded-lg shadow-md text-center cursor-pointer" onclick="openModal()">
+              <img src="img/image.png" alt="Produk 1" class="w-full object-cover rounded-t-md" />
+              <div
+                class="absolute bottom-0 left-0 right-0 bg-whiten h-[20px] rounded-b-md p-3 flex items-center justify-center">
+                <span class="font-semibold text-[10px]">Coffee</span>
+              </div>
             </div>
-            <div
-              class="product-item p-4 rounded-lg shadow-md text-center"
-              data-id="2">
-              <img
-                src="img/people.png"
-                alt="Produk 2"
-                class="w-full h-32 object-cover rounded-md" />
-              <p class="mt-2 font-semibold">Produk 2</p>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-item relative rounded-lg shadow-md text-center cursor-pointer" onclick="openModal()">
+              <img src="img/image.png" alt="Produk 1" class="w-full object-cover rounded-t-md" />
+              <div
+                class="absolute bottom-0 left-0 right-0 bg-whiten h-[20px] rounded-b-md p-3 flex items-center justify-center">
+                <span class="font-semibold text-[10px]">Coffee</span>
+              </div>
             </div>
-            <div
-              class="product-item p-4 rounded-lg shadow-md text-center"></div>
-            <div
-              class="product-item p-4 rounded-lg shadow-md text-center"></div>
+            <div class="product-item relative rounded-lg shadow-md text-center cursor-pointer" onclick="openModal()">
+              <img src="img/image.png" alt="Produk 1" class="w-full object-cover rounded-t-md" />
+              <div
+                class="absolute bottom-0 left-0 right-0 bg-whiten h-[20px] rounded-b-md p-3 flex items-center justify-center">
+                <span class="font-semibold text-[10px]">Coffee</span>
+              </div>
+            </div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+            <p id="empty-message" class="hidden text-center mt-8 text-gray-600">
+              Tidak ada produk.
+            </p>
           </div>
 
-          <p id="empty-message" class="hidden text-center mt-8 text-gray-600">
-            Tidak ada produk di waiting list.
-          </p>
-        </main>
-      </main>
+          <div class="w-5/12 ml-4">
+            <div class="flex justify-between mb-4">
+              <!-- Tambah Pelanggan Button -->
+              <button class="flex items-center bg-[#a91d3a] text-white px-4 py-2 rounded-lg  shadow-md"
+                onclick="openCustomerPopup()">
+                <i class="bx bxs-user-plus text-xl mr-2"></i> Tambah Pelanggan
+              </button>
 
-      <nav>
-        <i class="bx bx-menu"></i>
-        <form action="#" hidden>
-          <div class="form-input">
-            <input type="search" placeholder="Search..." />
-            <button type="submit" class="search-btn">
-              <i class="bx bx-search"></i>
-            </button>
+              <!-- Daftar Bill Button -->
+              <button
+                class="flex items-center bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 shadow-md"
+                onclick="openBillPopup()">
+                <i class="bx bxs-receipt text-xl"></i>
+              </button>
+            </div>
+
+            <!-- Existing Content -->
+            <!-- <div class="w-full flex">
+              <div class="mb-3 rounded-md btn-sort h-[35px]">
+                <i class="bx bx-menu-alt-left text-whiten"></i>
+              </div>
+              <div class="w-4/5 text-lg text-main mb-3 ml-2">Detail Pesanan</div>
+            </div> -->
+
+            <div class="p-2 px-4 order-list shadow-md">
+              <!-- Header -->
+              <div class="flex justify-center">
+                <div class="font-bold">Dine In</div>
+              </div>
+              <hr />
+
+              <!-- Tempat Data -->
+              <div class="overflow-y-auto max-h-52">
+                <div class="flex justify-between py-2">
+                  <span>Item 1</span>
+                  <span>Rp. 10,000</span>
+                </div>
+                <div class="flex justify-between py-2">
+                  <span>Item 2</span>
+                  <span>Rp. 15,000</span>
+                </div>
+                <div class="flex justify-between py-2">
+                  <span>Item 3</span>
+                  <span>Rp. 20,000</span>
+                </div>
+                <hr class="my-2" />
+                <div class="flex justify-between py-2">
+                  <span>Tax</span>
+                  <span>Rp. 2,500</span>
+                </div>
+                <div class="flex justify-between py-2">
+                  <span>Diskon</span>
+                  <span>- Rp. 5,000</span>
+                </div>
+                <hr class="my-2" />
+                <div class="flex justify-between py-2 font-bold">
+                  <span>Subtotal</span>
+                  <span>Rp. 42,500</span>
+                </div>
+              </div>
+
+              <hr class="my-4" />
+
+              <!-- Grand Total -->
+              <div class="flex gap-2 text-lg">
+                <p class="font-semibold w-1/2">Grand Total :</p>
+                <p class="font-semibold w-1/2">Rp. 50,000</p>
+              </div>
+
+              <div class="relative mt-3">
+                <select
+                  class="w-full bg-gray-100 border border-gray-300 text-gray-700 py-2 px-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+                  <option value="" disabled selected>
+                    Pilih Table
+                  </option>
+                  <option value="table-1">Table 1</option>
+                  <option value="table-2">Table 2</option>
+                  <option value="table-3">Table 3</option>
+                  <option value="table-4">Table 4</option>
+                </select>
+
+              </div>
+              <!-- Buttons -->
+              <div class="flex gap-2 mt-4">
+                <button
+                  class="bg-darken hover:bg-gray-600 text-white lg:text-sm text-xs font-semibold py-1 px-3 rounded-sm w-1/2">
+                  Simpan Dulu
+                </button>
+                <button
+                  class="bg-main hover:bg-red-400 text-white lg:text-sm text-xs font-semibold py-1 px-3 rounded-sm w-1/2">
+                  Cetak Struk
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-3 flex flex-col gap-2 bg-whiten p-2 order-list">
+              <!-- Dropdown Table -->
+              <!-- Button Bayar -->
+              <button
+                class="w-full bg-green-500 hover:bg-green-600 text-whiten lg:text-sm text-xs font-semibold py-1 px-3 rounded-sm"
+                onclick="payModal()">
+                Bayar
+              </button>
+            </div>
+
           </div>
-        </form>
-        <input type="checkbox" id="switch-mode" hidden />
-        <label for="switch-mode" class="switch-mode"></label>
+        </div>
+      </div>
 
-        <a href="#" class="profile">
-          <img src="img/people.png" />
+      <div id="library" class="content-page hidden">
+        <div class="item flex container mx-auto">
+          <div class="w-7/12 mx-auto">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-2xl font-bold flex items-center gap-2">
+                <i class='bx bx-library text-gray-700'></i>Library
+              </h2>
+              <button class="flex items-center space-x-2 px-4 py-2 bg-[#a91d3a] text-white rounded-lg shadow-md "
+                onclick="openAddModal()">
+                <i class="bx bxs-plus-circle text-xl"></i>
+                <span>Add</span>
+              </button>
+            </div>
+            <!-- Search Bar -->
+            <div class="relative mb-4">
+              <input type="text" placeholder="Search..." id="search"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-black" />
+            </div>
+            <!-- Category List -->
+            <div class="overflow-y-auto max-h-[34rem] border border-gray-200 rounded-lg shadow-sm">
+              <ul id="category-list" class="divide-y divide-gray-200">
+                <!-- List Items -->
+                <li class="flex items-center justify-between p-4 bg-white cursor-pointer" onclick="openModal()">
+                  <div class="flex items-center space-x-4">
+                    <img src="https://via.placeholder.com/40" alt="Category" class="w-10 h-10 rounded-full" />
+                    <span class="text-gray-800 font-medium">Coffee</span>
+                  </div>
+                  <i class="bx bx-chevron-right text-gray-600"></i>
+                </li>
+                <li class="flex items-center justify-between p-4 bg-white cursor-pointer"
+                  onclick="selectCategory('Tea', 'Teh Tarik')">
+                  <div class="flex items-center space-x-4">
+                    <img src="https://via.placeholder.com/40" alt="Category" class="w-10 h-10 rounded-full" />
+                    <span class="text-gray-800 font-medium">Tea</span>
+                  </div>
+                  <i class="bx bx-chevron-right text-gray-600"></i>
+                </li>
+                <li class="flex items-center justify-between p-4 bg-white cursor-pointer" onclick="openModal()">
+                  <div class="flex items-center space-x-4">
+                    <img src="https://via.placeholder.com/40" alt="Category" class="w-10 h-10 rounded-full" />
+                    <span class="text-gray-800 font-medium">Coffee</span>
+                  </div>
+                  <i class="bx bx-chevron-right text-gray-600"></i>
+                </li>
+                <li class="flex items-center justify-between p-4 bg-white cursor-pointer" onclick="openModal()">
+                  <div class="flex items-center space-x-4">
+                    <img src="https://via.placeholder.com/40" alt="Category" class="w-10 h-10 rounded-full" />
+                    <span class="text-gray-800 font-medium">Coffee</span>
+                  </div>
+                  <i class="bx bx-chevron-right text-gray-600"></i>
+                </li>
+                <li class="flex items-center justify-between p-4 bg-white cursor-pointer" onclick="openModal()">
+                  <div class="flex items-center space-x-4">
+                    <img src="https://via.placeholder.com/40" alt="Category" class="w-10 h-10 rounded-full" />
+                    <span class="text-gray-800 font-medium">Coffee</span>
+                  </div>
+                  <i class="bx bx-chevron-right text-gray-600"></i>
+                </li>
+                <li class="flex items-center justify-between p-4 bg-white cursor-pointer" onclick="openModal()">
+                  <div class="flex items-center space-x-4">
+                    <img src="https://via.placeholder.com/40" alt="Category" class="w-10 h-10 rounded-full" />
+                    <span class="text-gray-800 font-medium">Coffee</span>
+                  </div>
+                  <i class="bx bx-chevron-right text-gray-600"></i>
+                </li>
+                <li class="flex items-center justify-between p-4 bg-white cursor-pointer" onclick="openModal()">
+                  <div class="flex items-center space-x-4">
+                    <img src="https://via.placeholder.com/40" alt="Category" class="w-10 h-10 rounded-full" />
+                    <span class="text-gray-800 font-medium">Coffee</span>
+                  </div>
+                  <i class="bx bx-chevron-right text-gray-600"></i>
+                </li>
+                <li class="flex items-center justify-between p-4 bg-white cursor-pointer" onclick="openModal()">
+                  <div class="flex items-center space-x-4">
+                    <img src="https://via.placeholder.com/40" alt="Category" class="w-10 h-10 rounded-full" />
+                    <span class="text-gray-800 font-medium">Coffee</span>
+                  </div>
+                  <i class="bx bx-chevron-right text-gray-600"></i>
+                </li>
+                <li class="flex items-center justify-between p-4 bg-white cursor-pointer" onclick="openModal()">
+                  <div class="flex items-center space-x-4">
+                    <img src="https://via.placeholder.com/40" alt="Category" class="w-10 h-10 rounded-full" />
+                    <span class="text-gray-800 font-medium">Coffee</span>
+                  </div>
+                  <i class="bx bx-chevron-right text-gray-600"></i>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="w-5/12 ml-4">
+            <div class="flex justify-between mb-4">
+              <!-- Tambah Pelanggan Button -->
+              <button class="flex items-center bg-[#a91d3a] text-white px-4 py-2 rounded-lg  shadow-md"
+                onclick="openCustomerPopup()">
+                <i class="bx bxs-user-plus text-xl mr-2"></i> Tambah Pelanggan
+              </button>
+
+              <!-- Daftar Bill Button -->
+              <button
+                class="flex items-center bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 shadow-md"
+                onclick="openBillPopup()">
+                <i class="bx bxs-receipt text-xl"></i>
+              </button>
+            </div>
+            <!-- <div class="w-full flex">
+              <div class="mb-3 rounded-md btn-sort h-[35px]">
+                <i class="bx bx-menu-alt-left text-white"></i>
+              </div>
+              <div class="w-4/5 text-lg text-main mb-3 ml-2">
+                Detail Pesanan
+              </div>
+            </div> -->
+
+            <div class="p-2 px-4 order-list shadow-md">
+              <!-- Header -->
+              <div class="flex justify-center">
+                <div class="font-bold">Dine In</div>
+              </div>
+              <hr />
+
+              <!-- Tempat Data -->
+              <div class="overflow-y-auto max-h-40">
+                <div class="flex justify-between py-2">
+                  <span>Item 1</span>
+                  <span>Rp. 10,000</span>
+                </div>
+                <div class="flex justify-between py-2">
+                  <span>Item 2</span>
+                  <span>Rp. 15,000</span>
+                </div>
+                <div class="flex justify-between py-2">
+                  <span>Item 3</span>
+                  <span>Rp. 20,000</span>
+                </div>
+                <hr class="my-2" />
+                <div class="flex justify-between py-2">
+                  <span>Tax</span>
+                  <span>Rp. 2,500</span>
+                </div>
+                <div class="flex justify-between py-2">
+                  <span>Diskon</span>
+                  <span>- Rp. 5,000</span>
+                </div>
+                <hr class="my-2" />
+                <div class="flex justify-between py-2 font-bold">
+                  <span>Subtotal</span>
+                  <span>Rp. 42,500</span>
+                </div>
+              </div>
+
+              <hr class="my-4" />
+
+              <!-- Grand Total -->
+              <div class="flex gap-2 text-lg">
+                <p class="font-semibold w-1/2">Grand Total :</p>
+                <p class="font-semibold w-1/2">Rp. 50,000</p>
+              </div>
+
+              <!-- Buttons -->
+              <div class="flex gap-2 mt-4">
+                <button
+                  class="bg-darken hover:bg-gray-600 text-white lg:text-sm text-xs font-semibold py-1 px-3 rounded-sm w-1/2">
+                  Simpan Dulu
+                </button>
+                <button
+                  class="bg-main hover:bg-red-400 text-white lg:text-sm text-xs font-semibold py-1 px-3 rounded-sm w-1/2">
+                  Cetak Struk
+                </button>
+              </div>
+            </div>
+
+
+            <div class="mt-3 flex flex-col gap-2 bg-whiten p-2 rounded-md">
+              <!-- Dropdown Table -->
+              <div class="relative">
+                <select
+                  class="w-full bg-gray-100 border border-gray-300 text-gray-700 py-2 px-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+                  <option value="" disabled selected>
+                    Pilih Table
+                  </option>
+                  <option value="table-1">Table 1</option>
+                  <option value="table-2">Table 2</option>
+                  <option value="table-3">Table 3</option>
+                  <option value="table-4">Table 4</option>
+                </select>
+
+              </div>
+
+              <!-- Button Bayar -->
+              <button
+                class="w-full bg-green-500 hover:bg-green-600 text-whiten lg:text-sm text-xs font-semibold py-1 px-3 rounded-sm"
+                onclick="payModal()">
+                Bayar
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div id="today" class="content-page hidden">
+        <div class="item flex container mx-auto">
+          <div class="w-7/12 mx-auto">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-2xl font-bold flex items-center gap-2">
+                <i class='bx bxs-receipt text-gray-700'></i> Table
+              </h2>
+              <button class="flex items-center space-x-2 px-4 py-2 bg-[#a91d3a] text-white rounded-lg shadow-md"
+                onclick="openTableModal()">
+                <i class="bx bxs-plus-circle text-xl"></i>
+                <span>Add</span>
+              </button>
+            </div>
+
+            <!-- Grid of Tables -->
+            <div class="mb-4">
+              <input type="text" id="searchInput" class="w-full p-2 border rounded-lg" placeholder="Cari Nomor Meja..."
+                oninput="filterTablesOrder()" />
+            </div>
+            <div id="tableGrid" class="grid grid-cols-4 gap-4 overflow-y-auto max-h-[33rem] p-2">
+              <!-- Dummy Data -->
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">11</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-green-500 rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#a91d3a]"
+                data-order='{"paymentMethod":"Transfer Bank","invoiceNumber":"#INV-1001","timePay":"10:35","noTable":"12","orderType":"Dine In","products":[{"name":"Kebab","price":30000,"quantity":1,"image":"https://via.placeholder.com/50"},{"name":"Air Putih","price":5000,"quantity":1,"image":"https://via.placeholder.com/50"},{"name":"Teh Tarik","price":15000,"quantity":1,"image":"https://via.placeholder.com/50"}],"subtotal":50000,"ppn":5000,"total":55000,"status":"Paid"}'
+                onclick="showOrderDetail(this)">
+                <span class="text-2xl font-bold text-white">12</span>
+                <div class="absolute bottom-0 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded"><i
+                    class='bx bxs-comment-add'></i>
+                  New Order
+                </div>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-green-500 rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#a91d3a]"
+                data-order='{"paymentMethod":"Transfer Bank","invoiceNumber":"#INV-1001","timePay":"10:35","noTable":"12","orderType":"Dine In","products":[{"name":"Kebab","price":30000,"quantity":1,"image":"https://via.placeholder.com/50"},{"name":"Air Putih","price":5000,"quantity":1,"image":"https://via.placeholder.com/50"},{"name":"Teh Tarik","price":15000,"quantity":1,"image":"https://via.placeholder.com/50"}],"subtotal":50000,"ppn":5000,"total":55000,"status":"Paid"}'
+                onclick="showOrderDetail(this)">
+                <span class="text-2xl font-bold text-white">12</span>
+                <div class="absolute bottom-0 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded"><i
+                    class='bx bxs-comment-add'></i>
+                  New Order
+                </div>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">13</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">13</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">13</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">13</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">13</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">13</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">13</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">13</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">13</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">13</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">13</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">13</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">13</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">13</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-green-500 rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#a91d3a]"
+                data-order='{"paymentMethod":"Credit Card","invoiceNumber":"#INV-1003","timePay":"11:00","noTable":"14","orderType":"Dine In","products":[{"name":"Pizza","price":40000,"quantity":1,"image":"https://via.placeholder.com/50"},{"name":"Cola","price":10000,"quantity":2,"image":"https://via.placeholder.com/50"}],"subtotal":60000,"ppn":6000,"total":66000,"status":"Unpaid"}'
+                onclick="showOrderDetail(this)">
+                <span class="text-2xl font-bold text-white">14</span>
+                <div class="absolute bottom-0 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded"><i
+                    class='bx bxs-comment-add'></i>
+                  New Order
+                </div>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">15</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-green-500 rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#a91d3a]"
+                data-order='{"noTable":"16"}'>
+                <span class="text-2xl font-bold text-white">16</span>
+                <div class="absolute bottom-0 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded"><i
+                    class='bx bxs-comment-add'></i>
+                  New Order
+                </div>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">17</span>
+
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-green-500 rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#a91d3a]"
+                data-order='{"noTable":"18"}'>
+                <span class="text-2xl font-bold text-white">18</span>
+                <div class="absolute bottom-0 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded"><i
+                    class='bx bxs-comment-add'></i>
+                  New Order
+                </div>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-[#a91d3a] outline-dashed rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#f0c3ccff]">
+                <span class="text-2xl font-bold text-[#a91d3a]">19</span>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-green-500 rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#a91d3a]"
+                data-order='{"noTable":"20"}'>
+                <span class="text-2xl font-bold text-white">20</span>
+                <div class="absolute bottom-0 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded"><i
+                    class='bx bxs-comment-add'></i>
+                  New Order
+                </div>
+              </div>
+              <div
+                class="relative h-[80px] w-[80px] outline outline-2 outline-green-500 rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer bg-[#a91d3a]"
+                data-order='{"noTable":"20"}'>
+                <span class="text-2xl font-bold text-white">20</span>
+                <div class="absolute bottom-0 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded"><i
+                    class='bx bxs-comment-add'></i>
+                  New Order
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Modal for Order Details -->
+          <div id="orderModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+              <h2 class="text-xl font-bold mb-4">Order Details</h2>
+              <div id="orderDetails" class="space-y-2"></div>
+              <button class="mt-4 w-full bg-[#a91d3a] text-white px-4 py-2 rounded-lg"
+                onclick="closeOrderModal()">Close</button>
+            </div>
+          </div>
+          <div class="w-5/12 ml-4">
+            <div class="flex justify-between mb-4">
+              <button class="flex items-center bg-[#a91d3a] text-white px-4 py-2 rounded-lg  shadow-md"
+                onclick="openCustomerPopup()">
+                <i class="bx bxs-user-plus text-xl mr-2"></i> Tambah Pelanggan
+              </button>
+
+              <!-- Daftar Bill Button -->
+              <button
+                class="flex items-center bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 shadow-md"
+                onclick="openBillPopup()">
+                <i class="bx bxs-receipt text-xl"></i>
+              </button>
+            </div>
+            <!-- <div class="w-full flex">
+                        <div class="mb-3 rounded-md btn-sort h-[35px]">
+                          <i class="bx bx-menu-alt-left text-white"></i>
+                        </div>
+                        <div class="w-4/5 text-lg text-main mb-3 ml-2">
+                          Detail Pesanan
+                        </div>
+                      </div> -->
+
+            <div class="p-2 px-4 order-list shadow-md" id="order-table">
+              <!-- Header -->
+              <div class="flex justify-center">
+                <div class="font-bold">Dine In</div>
+              </div>
+              <hr />
+              <!-- Tempat Data -->
+              <div class="overflow-y-auto max-h-40">
+                <div class="flex justify-between py-2">
+                  <span>Item 1</span>
+                  <span>Rp. 00,000</span>
+                </div>
+                <hr class="my-2" />
+                <div class="flex justify-between py-2">
+                  <span>Diskon</span>
+                  <span>- Rp. 00,000</span>
+                </div>
+                <hr class="my-2" />
+                <div class="flex justify-between py-2 font-bold">
+                  <span>Subtotal</span>
+                  <span>Rp. 00,000</span>
+                </div>
+              </div>
+
+              <hr class="my-4" />
+
+              <!-- Grand Total -->
+              <div class="flex gap-2 text-lg">
+                <p class="font-semibold w-1/2">Grand Total :</p>
+                <p class="font-semibold w-1/2">Rp. 50,000</p>
+              </div>
+            </div>
+
+
+            <div class="mt-3 flex flex-col gap-2 bg-whiten p-2 rounded-md">
+              <div class="flex gap-2">
+                <button
+                  class="bg-darken hover:bg-gray-600 text-white lg:text-sm text-xs font-semibold py-1 px-3 rounded-sm w-1/2">
+                  Simpan Dulu
+                </button>
+                <button
+                  class="bg-main hover:bg-red-400 text-white lg:text-sm text-xs font-semibold py-1 px-3 rounded-sm w-1/2">
+                  Cetak Struk
+                </button>
+              </div>
+              <!-- Button Bayar -->
+              <button
+                class="w-full bg-green-500 hover:bg-green-600 text-whiten lg:text-sm text-xs font-semibold py-1 px-3 rounded-sm"
+                onclick="payModal()">
+                Bayar
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div id="history" class="content-page hidden">
+        <div class="item flex container mx-auto gap-6">
+          <div class="w-4/12 mx-auto">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-2xl font-bold flex items-center gap-2">
+                <i class='bx bx-history text-gray-700'></i>Riwayat
+              </h2>
+            </div>
+            <div class="relative mb-4">
+              <input type="text" placeholder="No Invoice .." id="searchInvoice"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-black" />
+            </div>
+            <div class="overflow-y-auto max-h-[34rem]">
+              <div class="history-activity">
+                <div class="text-sm mr-2 my-2">Hari Ini</div>
+                <ul id="category-list" class="border border-gray-200 rounded-lg bg-white">
+                  <li class="flex flex-col p-4 cursor-pointer hover:bg-[#a91d3a] hover:text-white"
+                    data-invoice="#INV-1001"
+                    data-detail='{"paymentMethod":"Transfer Bank","invoiceNumber":"#INV-1001","timePay":"10:35","noTable":"1","orderType":"Dine In","products":[{"name":"Kebab","price":30000,"quantity":1,"image":"https://via.placeholder.com/50"},{"name":"Air Putih","price":5000,"quantity":1,"image":"https://via.placeholder.com/50"},{"name":"Teh Tarik","price":15000,"quantity":1,"image":"https://via.placeholder.com/50"}],"subtotal":50000,"ppn":5000,"total":55000,"paid":60000,"change":5000}'>
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <i class='bx bx-food-menu'></i>
+                        <span class="font-medium hover:text-white">Rp. 78.000</span>
+                      </div>
+                      <span class="text-xs">10:15</span>
+                    </div>
+                    <div class="text-menu text-xs line-clamp-1 mt-2">
+                      Kebab, Air Putih, Teh Tarik
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="history-activity">
+                <div class="text-sm mr-2 my-2">Kemarin</div>
+                <ul id="category-list" class="border border-gray-200 rounded-lg bg-white">
+                  <li class="flex flex-col p-4 cursor-pointer hover:bg-[#a91d3a] hover:text-white"
+                    data-invoice="#INV-1002"
+                    data-detail='{"paymentMethod":"Cash","invoiceNumber":"#INV-1002","timePay":"10:31","noTable":"13","orderType":"Dine Out","products":[{"name":"Americano","price":25000,"quantity":1,"image":"https://via.placeholder.com/50"},{"name":"Joshua","price":30000,"quantity":1,"image":"https://via.placeholder.com/50"},{"name":"Jasjus","price":15000,"quantity":1,"image":"https://via.placeholder.com/50"}],"subtotal":70000,"ppn":7000,"total":77000,"paid":80000,"change":3000}'>
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <i class='bx bx-food-menu'></i>
+                        <span class="font-medium hover:text-white">Rp. 89.000</span>
+                      </div>
+                      <span class="text-xs">10:31</span>
+                    </div>
+                    <div class="text-menu text-xs line-clamp-1 mt-2">
+                      Americano, Joshua, Jasjus
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="history-activity">
+                <div class="text-sm mr-2 my-2">27 November 2024</div>
+                <ul id="category-list" class="border border-gray-200 rounded-lg bg-white">
+                  <li class="flex flex-col p-4 cursor-pointer hover:bg-[#a91d3a] hover:text-white"
+                    data-invoice="kwp-1003"
+                    data-detail='{"paymentMethod":"QRIS","invoiceNumber":"#INV-1003","timePay":"10:33","noTable":"16","orderType":"Dine In","products":[{"name":"Gula Aren","price":20000,"quantity":1,"image":"https://via.placeholder.com/50"},{"name":"Kentucky","price":40000,"quantity":1,"image":"https://via.placeholder.com/50"},{"name":"Spaghetti","price":25000,"quantity":1,"image":"https://via.placeholder.com/50"},{"name":"Dimsum","price":15000,"quantity":1,"image":"https://via.placeholder.com/50"}],"subtotal":100000,"ppn":10000,"total":110000,"paid":110000,"change":0}'>
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <i class='bx bx-food-menu'></i>
+                        <span class="font-medium hover:text-white">Rp. 102.000</span>
+                      </div>
+                      <span class="text-xs">10:33</span>
+                    </div>
+                    <div class="text-menu text-xs line-clamp-1 mt-2">
+                      Gula Aren, Kentucky, Spaghetti, Dimsum
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+          <div class="w-8/12 mx-auto">
+            <div class="overflow-y-auto max-h-[40rem] ">
+              <div class="flex justify-between items-center mb-6">
+                <div class="flex gap-4">
+                  <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 flex items-center gap-2">
+                    <i class="bx bxs-send"></i> Kirim Struk
+                  </button>
+                  <button class="bg-[#a91d3a] text-white px-4 py-2 rounded-lg  flex items-center gap-2">
+                    <i class='bx bx-undo'></i> Refund
+                  </button>
+                </div>
+              </div>
+              <div id="detail-section" class="bg-white p-4 rounded-lg shadow-md">
+                <div id="detail-info" class="mb-6">
+                  <div class="flex items-center gap-2 text-lg">
+                    <i class="bx bxs-info-circle text-gray-700"></i>
+                    <span>Detail</span>
+                  </div>
+                  <ul class="mt-2 text-gray-600 space-y-2">
+                    <li class="flex justify-between">
+                      <span>Metode Pembayaran:</span>
+                      <span id="payment-method">-</span>
+                    </li>
+                    <li class="flex justify-between">
+                      <span>Nomor Invoice:</span>
+                      <span id="invoice-number">-</span>
+                    </li>
+                    <li class="flex justify-between">
+                      <span>Waktu Pembayaran:</span>
+                      <span id="time-pay">-</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="flex items-center gap-2 text-lg mb-4">
+                  <i class="bx bxs-cart text-gray-700"></i>
+                  <span>Produk</span>
+                </div>
+                <div class="flex justify-between">
+                  <div class="text-xs font-bold bg-[#a91d3a] text-white mb-3 rounded-lg px-2 py-1"
+                    style="width: fit-content;" id="order-type">-</div>
+                  <div class="text-xs font-bold bg-black text-white mb-3 rounded-lg px-2 py-1"
+                    style="width: fit-content;">Meja - <span id="no-table">0</span></div>
+                </div>
+                <div id="product-list" class="mb-6">
+                </div>
+                <div id="summary-section" class="mb-6">
+                  <div class="flex items-center gap-2 text-lg mb-4">
+                    <i class="bx bxs-credit-card text-gray-700"></i>
+                    <span>Pembayaran</span>
+                  </div>
+                  <div class="flex justify-between border-t pt-4">
+                    <span class="font-semibold">Subtotal:</span>
+                    <span id="subtotal">Rp. 0.000</span>
+                  </div>
+                  <div class="flex justify-between border-t pt-4">
+                    <span class="font-semibold">PPN (10%):</span>
+                    <span id="ppn">Rp. 0.000</span>
+                  </div>
+                  <div class="flex justify-between border-t pt-4 text-xl">
+                    <span class="font-bold">Total:</span>
+                    <span id="total">Rp. 0.000</span>
+                  </div>
+                  <div class="flex justify-between border-t pt-4">
+                    <span class="font-semibold">Bayar:</span>
+                    <span id="paid">Rp. 0.000</span>
+                  </div>
+                  <div class="flex justify-between border-t pt-4">
+                    <span class="font-semibold">Kembalian:</span>
+                    <span id="change">Rp. 0.000</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+    <nav>
+      <i class="bx bx-menu"></i>
+      <form action="#" hidden>
+        <div class="form-input">
+          <input type="search" placeholder="Search..." />
+          <button type="submit" class="search-btn">
+            <i class="bx bx-search"></i>
+          </button>
+        </div>
+      </form>
+
+      <div class="navbar-items dashboard w-full flex gap-2">
+        <a href="#dashboard" class="nav-item-bottom w-full py-2 rounded-md shadow-md text-center">
+          <i class="bx bx-tachometer mx-auto"></i> Dashboard
         </a>
-      </nav>
-    </section>
+      </div>
 
-    <script src="script.js"></script>
-  </body>
+      <div class="navbar-items settings w-full flex gap-2">
+        <a href="#settings" class="nav-item-bottom w-full py-2 rounded-md shadow-md text-center">
+          <i class='bx bx-cog'></i> Settings
+        </a>
+      </div>
+
+      <div class="navbar-items pos w-full flex gap-2">
+        <a href="#quick-access" class="nav-item-bottom w-1/2 py-2 rounded-md shadow-md text-center">
+          <i class="bx bx-rocket mx-auto"></i> Quick
+        </a>
+        <a href="#library" class="nav-item-bottom py-2 w-1/2 rounded-md shadow-md text-center">
+          <i class="bx bx-library mx-auto"></i> Library
+        </a>
+      </div>
+
+      <div class="navbar-items activity w-full flex gap-2 hidden">
+        <a href="#today" class="nav-item-bottom w-1/2 py-2 rounded-md shadow-md text-center">
+          <i class="bx bx-calendar mx-auto"></i> Hari Ini
+        </a>
+        <a href="#history" class="nav-item-bottom py-2 w-1/2 rounded-md shadow-md text-center">
+          <i class="bx bx-hourglass mx-auto"></i> Riwayat
+        </a>
+      </div>
+
+      <input type="checkbox" id="switch-mode" hidden />
+      <label for="switch-mode" class="switch-mode"></label>
+    </nav>
+  </section>
+
+  <div id="productModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+    <div class="bg-whiten rounded-lg p-5 w-10/12 max-h-[80vh]">
+      <div class="justify-center flex font-bold pb-3 text-2xl text-main">
+        Coffe
+      </div>
+      <div class="mb-4">
+        <input type="text" id="searchInput" onkeyup="searchItems()" placeholder="Search products..."
+          class="w-full px-4 py-2 border border-gray-300 rounded-sm" />
+      </div>
+      <div id="productList" class="space-y-4 overflow-y-auto">
+        <div class="product-list p-4 flex items-center justify-between shadow-md"
+          onclick="showProductDetail('EsTebu', 'Jeruk Asli', 'Rp. 30.000', 'https://storage.googleapis.com/a1aa/image/Gf1HfgQhe1b1eTq6NJMcINkPmc2iVHRnBE5TdqTnN9bmPsDPB.jpg')">
+          <div class="flex items-center">
+            <img alt="Image of a drink with straws" class="w-12 h-12 rounded-md" height="50"
+              src="https://storage.googleapis.com/a1aa/image/Gf1HfgQhe1b1eTq6NJMcINkPmc2iVHRnBE5TdqTnN9bmPsDPB.jpg"
+              width="50" />
+            <div class="ml-4">
+              <div class="font-bold">EsTebu</div>
+              <div class="">Jeruk Asli</div>
+            </div>
+          </div>
+          <div class="font-bold">Rp. 30.000</div>
+        </div>
+        <div class="product-list p-4 flex items-center justify-between shadow-md"
+          onclick="showProductDetail('blooao', 'Jeruk Asli', 'Rp. 30.000', 'https://storage.googleapis.com/a1aa/image/Gf1HfgQhe1b1eTq6NJMcINkPmc2iVHRnBE5TdqTnN9bmPsDPB.jpg')">
+          <div class="flex items-center">
+            <img alt="Image of a drink with straws" class="w-12 h-12 rounded-md" height="50"
+              src="https://storage.googleapis.com/a1aa/image/Gf1HfgQhe1b1eTq6NJMcINkPmc2iVHRnBE5TdqTnN9bmPsDPB.jpg"
+              width="50" />
+            <div class="ml-4">
+              <div class="font-bold">blooao</div>
+              <div class="">Jeruk Asli</div>
+            </div>
+          </div>
+          <div class="font-bold">Rp. 30.000</div>
+        </div>
+        <div class="product-list p-4 flex items-center justify-between shadow-md"
+          onclick="showProductDetail('blooao', 'Jeruk Asli', 'Rp. 30.000', 'https://storage.googleapis.com/a1aa/image/Gf1HfgQhe1b1eTq6NJMcINkPmc2iVHRnBE5TdqTnN9bmPsDPB.jpg')">
+          <div class="flex items-center">
+            <img alt="Image of a drink with straws" class="w-12 h-12 rounded-md" height="50"
+              src="https://storage.googleapis.com/a1aa/image/Gf1HfgQhe1b1eTq6NJMcINkPmc2iVHRnBE5TdqTnN9bmPsDPB.jpg"
+              width="50" />
+            <div class="ml-4">
+              <div class="font-bold">blooao</div>
+              <div class="">Jeruk Asli</div>
+            </div>
+          </div>
+          <div class="font-bold">Rp. 30.000</div>
+        </div>
+        <div class="product-list p-4 flex items-center justify-between shadow-md"
+          onclick="showProductDetail('blooao', 'Jeruk Asli', 'Rp. 30.000', 'https://storage.googleapis.com/a1aa/image/Gf1HfgQhe1b1eTq6NJMcINkPmc2iVHRnBE5TdqTnN9bmPsDPB.jpg')">
+          <div class="flex items-center">
+            <img alt="Image of a drink with straws" class="w-12 h-12 rounded-md" height="50"
+              src="https://storage.googleapis.com/a1aa/image/Gf1HfgQhe1b1eTq6NJMcINkPmc2iVHRnBE5TdqTnN9bmPsDPB.jpg"
+              width="50" />
+            <div class="ml-4">
+              <div class="font-bold">Hahah</div>
+              <div class="">Jeruk Asli</div>
+            </div>
+          </div>
+          <div class="font-bold">Rp. 30.000</div>
+        </div>
+      </div>
+      <div class="close-btn justify-center flex">
+        <button onclick="closeModal()" class="my-2 px-2 font-bold py-2 bg-main text-white rounded-sm w-1/4">
+          Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Detail -->
+  <div id="detailModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+    <div class="bg-whiten rounded-lg p-5 w-10/12  relative">
+      <div class="oveflow-y-auto">
+        <div class="flex w-full">
+          <div class="flex justify-center">
+            <img id="detailImage" class="w-32 h-32 rounded-md" alt="Product Image" />
+          </div>
+          <div class="text-product grow ml-4">
+            <div class="flex justify-center font-bold text-2xl text-main" id="detailTitle">
+              Product Name Original
+            </div>
+            <div class="text-center text-xl font-reguler text-main">
+              <span id="detailPrice">10000</span>
+            </div>
+            <div class="flex w-full">
+              <div class="flex items-center justify-center mt-4">
+                <input type="text" id="quantity" value="1" readonly
+                  class="text-center w-12 border border-gray-300 mx-2 bg-main rounded-sm text-white font-bold py-[0.6rem] ring-main" />
+                <button onclick="decreaseQuantity()"
+                  class="py-2 px-8 text-main text-lg rounded-sm ring-main font-bold me-2">
+                  <i class="bx bx-minus"></i>
+                </button>
+                <button onclick="increaseQuantity()" class="py-2 px-8 ring-main text-lg rounded-sm text-main">
+                  <i class="bx bx-plus"></i>
+                </button>
+              </div>
+
+              <div class="text-center font-bold mt-4 grow content-center text-end text-2xl text-main">
+                Total : Rp. <span id="totalPrice">10000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex pt-3 gap-4">
+          <div class="w-6/12 order-side h-auto">
+            <h3 class="font-bold text-main pb-2">VARIAN</h3>
+            <div class="block">
+              <div class="flex justify-center mb-4 text-main font-bold">
+                <button onclick="selectVariant('original')"
+                  class="px-4 py-2 outline outline-2 outline-main rounded-l-sm w-6/12" id="originalTab">
+                  Original
+                </button>
+                <button onclick="selectVariant('special')"
+                  class="px-4 py-2 outline outline-2 outline-main rounded-r-sm w-6/12" id="specialTab">
+                  Special
+                </button>
+              </div>
+            </div>
+            <div class="block">
+              <h3 class="font-bold text-main ">CATATAN</h3>
+              <div class="flex justify-center mb-4 pt-2  font-bold">
+                <textarea class="textarea-responsive w-full grow" name="catatan" id="catatan"
+                  placeholder="Tulis catatan di sini..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-6/12 discount-side ">
+            <h3 class="font-bold text-main pb-2">DISKON</h3>
+            <div class="w-full h-[250px] overflow-y-auto">
+              <div class="card-discount">
+                <div class="h-[85px] px-4 py-2 justify-between bg-main rounded-sm  flex items-center">
+                  <div class="text-discount text-white content-center pr-3 line-clamp-2">
+                    Diskon Teman Fifteenth Suka Kamu
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="discount-toggle" onchange="toggleDiscount()" />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <div class="card-discount">
+                <div class="h-[85px] px-4 py-2 justify-between bg-main rounded-sm  flex items-center">
+                  <div class="text-discount text-white content-center pr-3 line-clamp-2">
+                    Diskon Teman Fifteenth Suka Kamu
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="discount-toggle" onchange="toggleDiscount()" />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <div class="card-discount">
+                <div class="h-[85px] px-4 py-2 justify-between bg-main rounded-sm  flex items-center">
+                  <div class="text-discount text-white content-center pr-3 line-clamp-2">
+                    Diskon Teman Fifteenth Suka Kamu
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="discount-toggle" onchange="toggleDiscount()" />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <div class="card-discount">
+                <div class="h-[85px] px-4 py-2 justify-between bg-main rounded-sm  flex items-center">
+                  <div class="text-discount text-white content-center pr-3 line-clamp-2">
+                    Diskon Teman Fifteenth Suka Kamu
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="discount-toggle" onchange="toggleDiscount()" />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <div class="card-discount">
+                <div class="h-[85px] px-4 py-2 justify-between bg-main rounded-sm  flex items-center">
+                  <div class="text-discount text-white content-center pr-3 line-clamp-2">
+                    Diskon Teman Fifteenth Suka Kamu
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="discount-toggle" onchange="toggleDiscount()" />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <div class="card-discount">
+                <div class="h-[85px] px-4 py-2 justify-between bg-main rounded-sm  flex items-center">
+                  <div class="text-discount text-white content-center pr-3 line-clamp-2">
+                    Diskon Teman Fifteenth Suka Kamu
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="discount-toggle" onchange="toggleDiscount()" />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="close-btn flex gap-4 font-bold sticky bottom-0 bg-whiten w-full">
+          <button onclick="closeDetailModal()" class=" p-2 bg-main text-white w-6/12 rounded-sm">
+            Tutup
+          </button>
+          <button onclick="closeDetailModal()" class=" p-2 bg-green-500 text-white w-6/12 rounded-sm">
+            Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AddModal -->
+  <div id="addModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-10000">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+      <h3 class="text-xl font-bold mb-4 text-[#a91d3a]">Add New Item</h3>
+      <form id="addItemForm">
+        <!-- Image -->
+        <div class="mb-4">
+          <label class="block text-gray-700">Image</label>
+          <input type="file" id="itemImage"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" />
+        </div>
+        <!-- Name -->
+        <div class="mb-4">
+          <label class="block text-gray-700">Name</label>
+          <input type="text" id="itemName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none"
+            placeholder="Enter item name" />
+        </div>
+        <!-- Price -->
+        <div class="mb-4">
+          <label class="block text-gray-700">Price</label>
+          <input type="number" id="itemPrice"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" placeholder="Enter price" />
+        </div>
+        <!-- Variants -->
+        <div class="mb-4">
+          <label class="block text-gray-700">Variants</label>
+          <textarea id="itemVariants" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none"
+            placeholder="Enter variants separated by commas"></textarea>
+        </div>
+        <!-- Category Dropdown -->
+        <div class="mb-4">
+          <label class="block text-gray-700">Category</label>
+          <select id="itemCategory" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+            <option value="Coffee">Coffee</option>
+            <option value="Tea">Tea</option>
+          </select>
+        </div>
+        <!-- Submit Button -->
+        <div class="flex justify-end">
+          <button type="button" onclick="closeAddModal()"
+            class="mr-2 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-500">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 bg-[#a91d3a] text-white rounded-lg">
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="tableModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-10000">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+      <h3 class="text-xl font-bold mb-4 text-[#a91d3a]">Add New Table</h3>
+      <form id="addItemForm">
+        <div class="mb-4">
+          <label class="block text-gray-700">No Table</label>
+          <input type="number" id="noTable"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" placeholder="Enter Number" />
+        </div>
+        <!-- Submit Button -->
+        <div class="flex justify-end">
+          <button type="button" onclick="closeTableModal()"
+            class="mr-2 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-500">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 bg-[#a91d3a] text-white rounded-lg">
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="payModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+      <!-- Title -->
+      <h2 class="text-center text-xl font-bold text-gray-800 mb-4">Payment</h2>
+
+      <!-- Member Selection -->
+      <div class="relative mb-4">
+        <button onclick="toggleDropdown()"
+          class="flex items-center justify-between w-full p-4 border rounded-lg shadow-sm cursor-pointer hover:bg-gray-100">
+          <div class="flex items-center space-x-4">
+            <i class="bx bxs-user text-3xl text-purple-500"></i>
+            <span class="text-gray-800 font-medium">Pilih Member</span>
+          </div>
+          <i class="bx bx-chevron-down text-xl"></i>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div id="emailDropdown"
+          class="absolute left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-lg hidden z-10 mt-2">
+          <!-- Search Box -->
+          <div class="p-2">
+            <input type="text" id="searchEmail" placeholder="Cari email..." onkeyup="filterEmails()"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+          </div>
+          <!-- Email List -->
+          <ul id="emailList" class="max-h-40 overflow-y-auto">
+            <li class="p-4 hover:bg-gray-100 cursor-pointer" onclick="selectEmail('user1@example.com')">
+              user1@example.com
+            </li>
+            <li class="p-4 hover:bg-gray-100 cursor-pointer" onclick="selectEmail('user2@example.com')">
+              user2@example.com
+            </li>
+            <li class="p-4 hover:bg-gray-100 cursor-pointer" onclick="selectEmail('user3@example.com')">
+              user3@example.com
+            </li>
+            <li class="p-4 hover:bg-gray-100 cursor-pointer" onclick="selectEmail('user4@example.com')">
+              user4@example.com
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="paymentSection" class="hidden my-4">
+        <div class="space-y-4">
+          <div
+            class="flex items-center justify-between p-4 border rounded-lg shadow-sm cursor-pointer hover:bg-gray-100"
+            onclick="handlePayment('QRIS')">
+            <div class="flex items-center space-x-4">
+              <i class="bx bx-qr-scan text-3xl text-blue-500"></i>
+              <span class="text-gray-800 font-medium">Bayar dengan QRIS</span>
+            </div>
+          </div>
+
+          <div
+            class="flex items-center justify-between p-4 border rounded-lg shadow-sm cursor-pointer hover:bg-gray-100"
+            onclick="handlePayment('Tunai')">
+            <div class="flex items-center space-x-4">
+              <i class="bx bxs-wallet text-3xl text-green-500"></i>
+              <span class="text-gray-800 font-medium">Bayar dengan Tunai</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex justify-between">
+        <button onclick="skipMember()" class="bg-[#a91d3a] text-white px-4 py-2 rounded-lg shadow">Skip</button>
+        <button onclick="closePayModal()" class="bg-gray-400 text-white px-4 py-2 rounded-lg shadow">Close</button>
+      </div>
+
+      <!-- Payment Cards -->
+    </div>
+  </div>
+
+
+  <div id="customerPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-80">
+      <h2 class="text-center text-xl font-bold mb-4">Tambah Pelanggan</h2>
+      <form id="addCustomerForm">
+        <!-- Nama -->
+        <div class="mb-4">
+          <label class="block text-gray-700">Nama</label>
+          <input type="text" id="customerName"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" placeholder="Masukkan nama" />
+        </div>
+        <!-- No Telpon -->
+        <div class="mb-4">
+          <label class="block text-gray-700">No Telpon</label>
+          <input type="text" id="customerPhone"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none"
+            placeholder="Masukkan no telpon" />
+        </div>
+        <!-- Alamat -->
+        <div class="mb-4">
+          <label class="block text-gray-700">Alamat</label>
+          <textarea id="customerAddress" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none"
+            placeholder="Masukkan alamat"></textarea>
+        </div>
+        <!-- Buttons -->
+        <div class="flex justify-end">
+          <button type="button" onclick="closeCustomerPopup()"
+            class="mr-2 px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500">
+            Batal
+          </button>
+          <button type="submit" class="px-4 py-2 bg-[#a91d3a] text-white rounded-lg hover:bg-blue-600">
+            Simpan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Daftar Bill Popup -->
+  <div id="billPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-whiten rounded-lg p-5 w-10/12 max-h-[80vh]">
+      <!-- Title -->
+      <h2 class="text-center text-2xl font-bold mb-4 text-[#a91d3a]">Daftar Bill</h2>
+
+      <!-- Tabs Navigation -->
+
+      <div class="flex border-t border-b border-gray-300 mb-4">
+        <button
+          class="flex-1 text-center py-2 hover:bg-[#a91d3a] hover:text-white font-bold focus:outline-none active-tab"
+          onclick="switchTab('openBill')">
+          Open Bill
+        </button>
+        <button class="flex-1 text-center py-2 hover:bg-[#a91d3a] hover:text-white font-bold focus:outline-none"
+          onclick="switchTab('cancelBill')">
+          Pembatalan Bill
+        </button>
+      </div>
+
+      <!-- Tabs Content -->
+      <div id="tabContent">
+        <!-- Open Bill Tab -->
+        <div id="openBill" class="tab-pane">
+          <!-- Search Bar -->
+          <div class="mb-4">
+            <input type="text" id="searchBill" oninput="filterBills()" placeholder="Cari Bill..."
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200" />
+          </div>
+
+          <!-- Table -->
+          <div class="overflow-y-auto max-h-48">
+            <table class="w-full text-left border-collapse ">
+              <thead>
+                <tr class="bg-gray-100 border-b text-center">
+                  <th class="p-2">Nama</th>
+                  <th class="p-2">No Meja</th>
+                  <th class="p-2">Pelayan</th>
+                  <th class="p-2">Jam Tanggal</th>
+                  <th class="p-2">Status</th>
+                </tr>
+              </thead>
+              <tbody id="billTable">
+                <!-- Sample Rows -->
+                <tr class="border-b hover:bg-gray-50 text-center">
+                  <td class="p-2">Budi</td>
+                  <td class="p-2">12</td>
+                  <td class="p-2">Ani</td>
+                  <td class="p-2">2024-12-01 14:00</td>
+                  <td class="p-2 ">
+                    <button class="bg-green-500 text-white px-4 py-1 rounded-lg hover:bg-green-600"
+                      onclick="payModal()">
+                      Bayar
+                    </button>
+                    <button class="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-600">
+                      Batal
+                    </button>
+                  </td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50 text-center">
+                  <td class="p-2">Budi</td>
+                  <td class="p-2">12</td>
+                  <td class="p-2">Ani</td>
+                  <td class="p-2">2024-12-01 14:00</td>
+                  <td class="p-2 ">
+                    <button class="bg-green-500 text-white px-4 py-1 rounded-lg hover:bg-green-600"
+                      onclick="payModal()">
+                      Bayar
+                    </button>
+                    <button class="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-600">
+                      Batal
+                    </button>
+                  </td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50 text-center">
+                  <td class="p-2">Budi</td>
+                  <td class="p-2">12</td>
+                  <td class="p-2">Ani</td>
+                  <td class="p-2">2024-12-01 14:00</td>
+                  <td class="p-2 ">
+                    <button class="bg-green-500 text-white px-4 py-1 rounded-lg hover:bg-green-600"
+                      onclick="payModal()">
+                      Bayar
+                    </button>
+                    <button class="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-600">
+                      Batal
+                    </button>
+                  </td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50 text-center">
+                  <td class="p-2">Budi</td>
+                  <td class="p-2">12</td>
+                  <td class="p-2">Ani</td>
+                  <td class="p-2">2024-12-01 14:00</td>
+                  <td class="p-2 ">
+                    <button class="bg-green-500 text-white px-4 py-1 rounded-lg hover:bg-green-600"
+                      onclick="payModal()">
+                      Bayar
+                    </button>
+                    <button class="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-600">
+                      Batal
+                    </button>
+                  </td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50 text-center">
+                  <td class="p-2">Budi</td>
+                  <td class="p-2">12</td>
+                  <td class="p-2">Ani</td>
+                  <td class="p-2">2024-12-01 14:00</td>
+                  <td class="p-2 ">
+                    <button class="bg-green-500 text-white px-4 py-1 rounded-lg hover:bg-green-600"
+                      onclick="payModal()">
+                      Bayar
+                    </button>
+                    <button class="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-600">
+                      Batal
+                    </button>
+                  </td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50 text-center">
+                  <td class="p-2">Siti</td>
+                  <td class="p-2">5</td>
+                  <td class="p-2">Bambang</td>
+                  <td class="p-2">2024-12-01 13:30</td>
+                  <td class="p-2 ">
+                    <i class="bx bx-check text-green-600 text-2xl"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pembatalan Bill Tab -->
+        <div id="cancelBill" class="tab-pane hidden">
+          <div class="overflow-y-auto max-h-48">
+            <table class="w-full text-left border-collapse ">
+              <thead>
+                <tr class="bg-gray-100 border-b text-center">
+                  <th class="p-2">Nama</th>
+                  <th class="p-2">No Meja</th>
+                  <th class="p-2">Pelayan</th>
+                  <th class="p-2">Jam Tanggal</th>
+                  <th class="p-2">Status</th>
+                </tr>
+              </thead>
+              <tbody id="billTable">
+                <!-- Sample Rows -->
+                <tr class="border-b hover:bg-gray-50 text-center">
+                  <td class="p-2">Budi</td>
+                  <td class="p-2">12</td>
+                  <td class="p-2">Ani</td>
+                  <td class="p-2">2024-12-01 14:00</td>
+                  <td class="p-2 ">
+                    <i class="bx bx-x text-red-600 text-2xl"></i>
+                  </td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50 text-center">
+                  <td class="p-2">Budi</td>
+                  <td class="p-2">12</td>
+                  <td class="p-2">Ani</td>
+                  <td class="p-2">2024-12-01 14:00</td>
+                  <td class="p-2 ">
+                    <i class="bx bx-x text-red-600 text-2xl"></i>
+                  </td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50 text-center">
+                  <td class="p-2">Budi</td>
+                  <td class="p-2">12</td>
+                  <td class="p-2">Ani</td>
+                  <td class="p-2">2024-12-01 14:00</td>
+                  <td class="p-2 ">
+                    <i class="bx bx-x text-red-600 text-2xl"></i>
+                  </td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50 text-center">
+                  <td class="p-2">Budi</td>
+                  <td class="p-2">12</td>
+                  <td class="p-2">Ani</td>
+                  <td class="p-2">2024-12-01 14:00</td>
+                  <td class="p-2 ">
+                    <i class="bx bx-x text-red-600 text-2xl"></i>
+                  </td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50 text-center">
+                  <td class="p-2">Budi</td>
+                  <td class="p-2">12</td>
+                  <td class="p-2">Ani</td>
+                  <td class="p-2">2024-12-01 14:00</td>
+                  <td class="p-2 ">
+                    <i class="bx bx-x text-red-600 text-2xl"></i>
+                  </td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50 text-center">
+                  <td class="p-2">Siti</td>
+                  <td class="p-2">5</td>
+                  <td class="p-2">Bambang</td>
+                  <td class="p-2">2024-12-01 13:30</td>
+                  <td class="p-2 ">
+                    <i class="bx bx-x text-red-600 text-2xl"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Close Button -->
+      <div class="flex justify-center">
+        <button onclick="closeBillPopup()" class="mt-4 w-2/12 bg-[#a91d3a] text-white px-4 py-2 rounded-lg">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="logoutPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden"
+    style="z-index: 3000;">
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center w-80">
+      <h2 class="text-xl font-bold mb-4">Halo, Nama User</h2>
+      <p class="mb-4">Apakah Anda yakin ingin logout?</p>
+      <div class="flex justify-center gap-4">
+        <!-- Logout Button -->
+        <button class="bg-[#a91d3a] text-white px-4 py-2 rounded-lg flex items-center gap-2" onclick="confirmLogout()">
+          <i class="bx bxs-log-out-circle"></i>
+          Logout
+        </button>
+        <!-- Cancel Button -->
+        <button class="bg-gray-300 text-black px-4 py-2 rounded-lg hover:bg-gray-400 flex items-center gap-2"
+          onclick="closeLogoutPopup()">
+          <i class="bx bxs-x-circle"></i>
+          Batal
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    function filterTablesOrder() {
+      const searchValue = document.getElementById('searchInput').value.toLowerCase();
+      const tableGrid = document.getElementById('tableGrid');
+      const tables = tableGrid.getElementsByClassName('relative');
+
+      for (let i = 0; i < tables.length; i++) {
+        const tableNumber = tables[i].innerText.toLowerCase();
+        if (tableNumber.includes(searchValue)) {
+          tables[i].style.display = 'flex';
+        } else {
+          tables[i].style.display = 'none';
+        }
+      }
+    }
+
+
+    function showOrderDetail(element) {
+      const orderData = JSON.parse(element.getAttribute('data-order'));
+      const orderTable = document.getElementById('order-table');
+
+      orderTable.innerHTML = `
+      <div class="flex justify-center">
+        <div class="font-bold">${orderData.orderType}</div>
+      </div>
+      <hr />
+    `;
+
+      // Tambahkan daftar produk
+      let productsHTML = '';
+      orderData.products.forEach(product => {
+        productsHTML += `
+        <div class="flex justify-between py-2">
+          <span>${product.name} (${product.quantity}x)</span>
+          <span>Rp. ${product.price.toLocaleString()}</span>
+        </div>
+      `;
+      });
+
+      // Tambahkan detail subtotal, PPN, dan total
+      const orderDetailsHTML = `
+      ${productsHTML}
+      
+      <hr class="my-2" />
+      <div class="overflow-y-auto max-h-40">
+        <div class="flex justify-between py-2 font-semibold">
+        <span>Subtotal</span>
+        <span>Rp. ${orderData.subtotal.toLocaleString()}</span>
+      </div>
+      <div class="flex justify-between py-2 font-semibold">
+        <span>PPN</span>
+        <span>Rp. ${orderData.ppn.toLocaleString()}</span>
+      </div>
+      <hr class="my-2" />
+      <div class="flex justify-between py-2 text-lg font-semibold">
+        <span>Grand Total :</span>
+        <span>Rp. ${orderData.total.toLocaleString()}</span>
+      </div>
+      </div>
+    `;
+
+      // Tampilkan detail ke dalam elemen
+      orderTable.innerHTML += orderDetailsHTML;
+
+      // Tampilkan status pesanan
+      const statusColor = orderData.status === 'Paid' ? 'text-green-500' : 'text-red-500';
+      const statusHTML = `
+      <div class="text-center mt-4 font-bold ${statusColor}">
+        ${orderData.status}
+      </div>
+    `;
+      orderTable.innerHTML += statusHTML;
+    }
+
+  </script>
+  <script>
+    document.getElementById("searchInvoice").addEventListener("input", function () {
+      const query = this.value.toLowerCase();
+      const items = document.querySelectorAll("#category-list li");
+
+      items.forEach((item) => {
+        const invoice = item.getAttribute("data-invoice").toLowerCase();
+        if (invoice.includes(query)) {
+          item.style.display = "block";
+        } else {
+          item.style.display = "none";
+        }
+      });
+    });
+
+    document.querySelectorAll("#category-list li").forEach(item => {
+      item.addEventListener("click", () => {
+        const detailData = JSON.parse(item.getAttribute("data-detail"));
+
+        document.getElementById("payment-method").innerText = detailData.paymentMethod;
+        document.getElementById("invoice-number").innerText = detailData.invoiceNumber;
+        document.getElementById("time-pay").innerText = detailData.timePay;
+        document.getElementById("no-table").innerText = detailData.noTable;
+        document.getElementById("order-type").innerText = detailData.orderType;
+
+        const productList = document.getElementById("product-list");
+        productList.innerHTML = ""; // Clear existing products
+        detailData.products.forEach(product => {
+          const productItem = `
+          <li class="flex items-center gap-4">
+            <img src="${product.image}" alt="${product.name}" class="w-16 h-16 object-cover rounded-lg border mb-4" />
+            <div class="flex-grow">
+              <p class="font-semibold">${product.name}</p>
+              <p class="text-gray-500">Rp. ${product.price.toLocaleString()}</p>
+            </div>
+            <div class="text-right">
+              <p>Jumlah: ${product.quantity}</p>
+            </div>
+          </li>
+        `;
+          productList.insertAdjacentHTML("beforeend", productItem);
+        });
+
+        document.getElementById("subtotal").innerText = `Rp. ${detailData.subtotal.toLocaleString()}`;
+        document.getElementById("ppn").innerText = `Rp. ${detailData.ppn.toLocaleString()}`;
+        document.getElementById("total").innerText = `Rp. ${detailData.total.toLocaleString()}`;
+        document.getElementById("paid").innerText = `Rp. ${detailData.paid.toLocaleString()}`;
+        document.getElementById("change").innerText = `Rp. ${detailData.change.toLocaleString()}`;
+      });
+    });
+
+  </script>
+  <script>
+    let selectedEmail = null;
+
+    function toggleDropdown() {
+      const dropdown = document.getElementById("emailDropdown");
+      dropdown.classList.toggle("hidden");
+    }
+
+    function selectEmail(email) {
+      selectedEmail = email;
+      alert(`Email terpilih: ${email}`);
+      toggleDropdown();
+      // Tampilkan payment section
+      showPaymentSection();
+    }
+
+    function filterEmails() {
+      const searchInput = document.getElementById("searchEmail").value.toLowerCase();
+      const emailList = document.getElementById("emailList").getElementsByTagName("li");
+
+      for (let i = 0; i < emailList.length; i++) {
+        const email = emailList[i].textContent.toLowerCase();
+        emailList[i].style.display = email.includes(searchInput) ? "" : "none";
+      }
+    }
+
+    function showPaymentSection() {
+      document.getElementById("paymentSection").classList.remove("hidden");
+    }
+
+    function skipMember() {
+      selectedEmail = null; // Reset email
+      showPaymentSection(); // Tampilkan payment section
+    }
+
+    function closePayModal() {
+      const modal = document.getElementById("payModal");
+      modal.classList.add("hidden");
+    }
+
+    function handlePayment(method) {
+      if (selectedEmail) {
+        alert(`Melakukan pembayaran dengan ${method} untuk email: ${selectedEmail}`);
+      } else {
+        alert(`Melakukan pembayaran dengan ${method} tanpa email member.`);
+      }
+      closePayModal();
+    }
+
+    // Open Popup
+    function openLogoutPopup() {
+      document.getElementById('logoutPopup').classList.remove('hidden');
+    }
+
+    // Close Popup
+    function closeLogoutPopup() {
+      document.getElementById('logoutPopup').classList.add('hidden');
+    }
+
+    // Confirm Logout (Add actual logout functionality here)
+    function confirmLogout() {
+      alert('Logout berhasil!');
+      // Tambahkan logika logout di sini, misalnya redirect ke halaman login
+      window.location.href = '/login';
+    }
+  </script>
+
+  <script>
+
+    // Switch Tab Function
+    function switchTab(tabId) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-pane').forEach((tab) => {
+        tab.classList.add('hidden');
+      });
+
+      // Remove active-tab style
+      document.querySelectorAll('.border-b button').forEach((btn) => {
+        btn.classList.remove('active-tab');
+      });
+
+      // Show selected tab and highlight button
+      document.getElementById(tabId).classList.remove('hidden');
+      event.target.classList.add('active-tab');
+    }
+
+    // Close Bill Popup
+    function closeBillPopup() {
+      document.getElementById('billPopup').classList.add('hidden');
+    }
+
+    // Open Bill Popup (optional example)
+    function openBillPopup() {
+      document.getElementById('billPopup').classList.remove('hidden');
+    }
+
+
+    // Open Customer Popup
+    function openCustomerPopup() {
+      document.getElementById("customerPopup").classList.remove("hidden");
+    }
+
+    // Close Customer Popup
+    function closeCustomerPopup() {
+      document.getElementById("customerPopup").classList.add("hidden");
+    }
+
+    // Open Bill Popup
+    function openBillPopup() {
+      document.getElementById("billPopup").classList.remove("hidden");
+    }
+
+    // Close Bill Popup
+    function closeBillPopup() {
+      document.getElementById("billPopup").classList.add("hidden");
+    }
+
+    // Handle Customer Form Submission
+    document.getElementById("addCustomerForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("customerName").value;
+      const phone = document.getElementById("customerPhone").value;
+      const address = document.getElementById("customerAddress").value;
+
+      alert(`Pelanggan Baru\nNama: ${name}\nNo Telpon: ${phone}\nAlamat: ${address}`);
+      closeCustomerPopup();
+    });
+
+    function openAddModal() {
+      document.getElementById("addModal").classList.remove("hidden");
+    }
+
+    function openTableModal() {
+      document.getElementById("tableModal").classList.remove("hidden");
+    }
+
+    function payModal() {
+      document.getElementById("payModal").classList.remove("hidden");
+    }
+
+    function closePayModal() {
+      document.getElementById("payModal").classList.add("hidden");
+    }
+
+    function closeAddModal() {
+      document.getElementById("addModal").classList.add("hidden");
+    }
+
+    function closeTableModal() {
+      document.getElementById("tableModal").classList.add("hidden");
+    }
+
+    document.getElementById("addItemForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("itemName").value;
+      const price = document.getElementById("itemPrice").value;
+      const variants = document
+        .getElementById("itemVariants")
+        .value.split(",")
+        .map((v) => v.trim());
+      const category = document.getElementById("itemCategory").value;
+
+      const newItem = `
+                <li class="flex items-center justify-between p-4 hover:bg-gray-100 cursor-pointer">
+                    <div class="flex items-center space-x-4">
+                        <img
+                            src="https://via.placeholder.com/40"
+                            alt="Category"
+                            class="w-10 h-10 rounded-full"
+                        />
+                        <span class="text-gray-800 font-medium">${name} - $${price}</span>
+                    </div>
+                    <i class="bx bx-chevron-right text-gray-600"></i>
+                </li>
+            `;
+      document.getElementById("category-list").insertAdjacentHTML("beforeend", newItem);
+
+      closeAddModal();
+    });
+
+  </script>
+  <script>
+    let currentPrice;
+    let quantity = 1;
+    let productName;
+
+    function showProductDetail(name, description, price, imageUrl) {
+      productName = name;
+      document.getElementById("detailTitle").textContent = name;
+      document.getElementById("detailPrice").textContent = price;
+      document.getElementById("detailImage").src = imageUrl;
+      document.getElementById("detailModal").classList.remove("hidden");
+      document.getElementById("productModal").classList.add("hidden");
+
+      currentPrice = parseInt(price.replace("Rp. ", "").replace(".", ""));
+      updateTotalPrice();
+    }
+
+    function selectVariant(variant) {
+      if (variant === "original") {
+        currentPrice = 10000;
+        document.getElementById(
+          "detailPrice"
+        ).textContent = `Rp. ${currentPrice.toLocaleString()}`;
+        document.getElementById(
+          "detailTitle"
+        ).textContent = `${productName} Original`;
+
+        document
+          .getElementById("originalTab")
+          .classList.add("bg-main", "text-whiten");
+        document
+          .getElementById("specialTab")
+          .classList.remove("bg-main", "text-whiten");
+      } else if (variant === "special") {
+        currentPrice = 12000;
+        document.getElementById(
+          "detailPrice"
+        ).textContent = `Rp. ${currentPrice.toLocaleString()}`;
+        document.getElementById(
+          "detailTitle"
+        ).textContent = `${productName} Special`;
+
+        document
+          .getElementById("specialTab")
+          .classList.add("bg-main", "text-whiten");
+        document
+          .getElementById("originalTab")
+          .classList.remove("bg-main", "text-whiten");
+      }
+
+      updateTotalPrice();
+    }
+
+    function updateTotalPrice() {
+      const price = document.getElementById("detailPrice").textContent;
+      const parsedPrice = parseInt(
+        price.replace("Rp. ", "").replace(/\./g, ""),
+        10
+      );
+      const totalPrice = parsedPrice * quantity;
+      document.getElementById(
+        "totalPrice"
+      ).textContent = `Rp. ${totalPrice.toLocaleString()}`;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      selectVariant("original");
+    });
+
+    function increaseQuantity() {
+      quantity++;
+      document.getElementById("quantity").value = quantity;
+      updateTotalPrice();
+    }
+
+    function decreaseQuantity() {
+      if (quantity > 1) {
+        quantity--;
+        document.getElementById("quantity").value = quantity;
+        updateTotalPrice();
+      }
+    }
+
+    function updateTotalPrice() {
+      document.getElementById("totalPrice").textContent =
+        currentPrice * quantity;
+    }
+
+    function closeDetailModal() {
+      document.getElementById("detailModal").classList.add("hidden");
+      document.getElementById("productModal").classList.remove("hidden");
+    }
+
+    function closeModal() {
+      document.getElementById("productModal").classList.add("hidden");
+    }
+  </script>
+
+  <script>
+    function openModal() {
+      document.getElementById("productModal").classList.remove("hidden");
+    }
+
+    function closeModal() {
+      document.getElementById("productModal").classList.add("hidden");
+    }
+  </script>
+  <script>
+    $(document).ready(function () {
+      $("#category-grid").sortable({
+        placeholder: "product-empty",
+        update: function (event, ui) {
+          console.log("Order updated");
+        },
+      });
+
+      checkEmptyList();
+
+      function checkEmptyList() {
+        if ($("#category-grid .product-item").length === 0) {
+          $("#empty-message").removeClass("hidden");
+        } else {
+          $("#empty-message").addClass("hidden");
+        }
+      }
+
+      $(".product-item").on("dblclick", function () {
+        $(this).remove();
+        checkEmptyList();
+      });
+    });
+
+    $(document).ready(function () {
+      $("#searchInput").on("keyup", function () {
+        var searchText = $(this).val().toLowerCase();
+        $("#productList .product-list").filter(function () {
+          $(this).toggle(
+            $(this).text().toLowerCase().indexOf(searchText) > -1
+          );
+        });
+      });
+    });
+
+    function closeModal() {
+      $("#productModal").addClass("hidden");
+    }
+  </script>
+  <script>
+    function showPage(pageId) {
+      document.querySelectorAll(".content-page").forEach((page) => {
+        page.classList.add("hidden");
+      });
+      document.getElementById(pageId).classList.remove("hidden");
+      const posNavbar = document.querySelector(".navbar-items.pos");
+      const activityNavbar = document.querySelector(".navbar-items.activity");
+      const dashboardNavbar = document.querySelector(".navbar-items.dashboard");
+      const settingsNavbar = document.querySelector(".navbar-items.settings");
+      if (pageId === "quick-access" || pageId === "library") {
+        posNavbar.classList.remove("hidden");
+        activityNavbar.classList.add("hidden");
+        dashboardNavbar.classList.add("hidden");
+        settingsNavbar.classList.add("hidden");
+      } else if (pageId === "today" || pageId === "history") {
+        activityNavbar.classList.remove("hidden");
+        posNavbar.classList.add("hidden");
+        dashboardNavbar.classList.add("hidden");
+        settingsNavbar.classList.add("hidden");
+      } else if (pageId === "dashboard") {
+        dashboardNavbar.classList.remove("hidden");
+        posNavbar.classList.add("hidden");
+        activityNavbar.classList.add("hidden");
+        settingsNavbar.classList.add("hidden");
+      } else if (pageId === "settings") {
+        settingsNavbar.classList.remove("hidden");
+        dashboardNavbar.classList.add("hidden");
+        posNavbar.classList.add("hidden");
+        activityNavbar.classList.add("hidden");
+      }
+    }
+
+    document
+      .querySelectorAll(".side-menu a, .navbar-items a")
+      .forEach((link) => {
+        link.addEventListener("click", function (event) {
+          event.preventDefault();
+          const targetPage = link.getAttribute("href").substring(1);
+          showPage(targetPage);
+        });
+      });
+    showPage("today");
+  </script>
+  <script src="script.js"></script>
+</body>
+
 </html>
