@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Fifteen Cafe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        * {
+            font-family: "Poppins", sans-serif;
+        }
+
+        .bg-custom {
+            background-color: #f0c3ccff;
+        }
+
+        .btn-custom {
+            background-color: #a91d3a;
+        }
+
+        .btn-custom:hover {
+            background-color: #800b22;
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center h-screen bg-custom">
+    <div class="w-full max-w-sm p-6 bg-white rounded-lg shadow-lg">
+        <!-- Title -->
+        <div class="flex items-center justify-center mb-6 text-[#a91d3a]">
+            <i class="bx bxs-store text-3xl mr-2"></i>
+            <span class="text-2xl font-bold">Fifteen Cafe</span>
+        </div>
+
+        <h1 class="mb-4 text-xl font-bold text-center text-gray-800">Login</h1>
+
+        <!-- Outlet Dropdown -->
+        <div class="relative mb-4">
+            <label for="outlet" class="block mb-2 text-sm font-medium text-gray-700">Pilih Outlet</label>
+            <div class="relative">
+                <input type="text" id="searchOutlet" placeholder="Cari outlet..."
+                    class="w-full px-4 py-2 border rounded-lg shadow-sm outline-none focus:ring-2 focus:ring-[#a91d3a]">
+                <div class="absolute z-10 w-full bg-white border rounded-lg shadow-md dropdown-content mt-1 hidden"
+                    id="dropdownList">
+                    <!-- Dummy Outlet Options -->
+                    <div class="px-4 py-2 cursor-pointer hover:bg-gray-100">Outlet A</div>
+                    <div class="px-4 py-2 cursor-pointer hover:bg-gray-100">Outlet B</div>
+                    <div class="px-4 py-2 cursor-pointer hover:bg-gray-100">Outlet C</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Email/Username -->
+        <div class="mb-4">
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-700">Email/Username</label>
+            <div class="relative">
+                <i class="absolute bx bxs-user text-gray-400 top-3 left-3"></i>
+                <input type="text" id="email" placeholder="Email atau Username"
+                    class="w-full px-4 py-2 pl-10 border rounded-lg shadow-sm outline-none focus:ring-2 focus:ring-[#a91d3a]">
+            </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-6">
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-700">Password</label>
+            <div class="relative">
+                <i class="absolute bx bxs-lock text-gray-400 top-3 left-3"></i>
+                <input type="password" id="password" placeholder="Password"
+                    class="w-full px-4 py-2 pl-10 border rounded-lg shadow-sm outline-none focus:ring-2 focus:ring-[#a91d3a]">
+                <i id="togglePassword" class="absolute bx bxs-show text-gray-400 cursor-pointer top-3 right-3"></i>
+            </div>
+        </div>
+
+        <!-- Login Button -->
+        <div class="w-full justify-center inline-grid">
+            <a href="index.html" class="w-full px-4 py-2 text-white rounded-lg shadow-md btn-custom">
+                Login
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Password Visibility
+        const passwordInput = document.getElementById('password');
+        const togglePasswordIcon = document.getElementById('togglePassword');
+        togglePasswordIcon.addEventListener('click', () => {
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            togglePasswordIcon.classList.toggle('bxs-show', !isPassword);
+            togglePasswordIcon.classList.toggle('bxs-hide', isPassword);
+        });
+
+        // Dropdown Search
+        const searchOutlet = document.getElementById('searchOutlet');
+        const dropdownList = document.getElementById('dropdownList');
+        searchOutlet.addEventListener('focus', () => dropdownList.classList.remove('hidden'));
+        searchOutlet.addEventListener('blur', () => setTimeout(() => dropdownList.classList.add('hidden'), 100));
+        searchOutlet.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const options = dropdownList.children;
+            Array.from(options).forEach(option => {
+                const text = option.textContent.toLowerCase();
+                option.style.display = text.includes(query) ? 'block' : 'none';
+            });
+        });
+
+        // Dropdown Option Click
+        dropdownList.addEventListener('click', (e) => {
+            if (e.target.tagName === 'DIV') {
+                searchOutlet.value = e.target.textContent;
+                dropdownList.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+
+</html>
