@@ -190,52 +190,199 @@
               </div>
             </div>
 
-            <!-- Income Hari Ini -->
-            <div class="bg-purple-100 p-4 rounded-lg shadow flex items-center">
-              <i class="bx bxs-wallet text-purple-500 text-3xl mr-4"></i>
-              <div>
-                <p class="text-lg font-semibold">Income Hari Ini</p>
-                <p class="text-xl font-bold">Rp 5,000,000</p>
-              </div>
-            </div>
-
-            <!-- Income Bulan Ini -->
-            <div class="bg-indigo-100 p-4 rounded-lg shadow flex items-center">
-              <i class="bx bxs-dollar-circle text-indigo-500 text-3xl mr-4"></i>
-              <div>
-                <p class="text-lg font-semibold">Income Bulan Ini</p>
-                <p class="text-xl font-bold">Rp 150,000,000</p>
-              </div>
-            </div>
           </div>
 
           <!-- Produk Terlaris -->
+          <!-- Tambahkan CSS DataTables -->
+          <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
           <div class="bg-white p-6 rounded-lg shadow">
-            <h3 class="text-xl font-semibold mb-4 flex items-center">
-              <i class="bx bxs-star text-yellow-500 text-2xl mr-2"></i>
-              Produk Terlaris
-            </h3>
-            <ul class="divide-y divide-gray-200">
-              <li class="py-2 flex justify-between">
-                <span>Americano</span>
-                <span>120 Terjual</span>
-              </li>
-              <li class="py-2 flex justify-between">
-                <span>Teh Tarik</span>
-                <span>100 Terjual</span>
-              </li>
-              <li class="py-2 flex justify-between">
-                <span>Latte</span>
-                <span>95 Terjual</span>
-              </li>
-            </ul>
+            <div class="flex justify-between">
+              <h3 class="text-xl font-semibold mb-4 flex items-center">
+                <i class="bx bxs-star text-yellow-500 text-2xl mr-2"></i>
+                Produk Terlaris
+              </h3>
+              <div class="mb-4 flex space-x-4">
+                <select id="dateFilter" class="border border-gray-300 rounded px-4 py-2">
+                  <option value="all">All Time</option>
+                  <option value="today">Hari Ini</option>
+                  <option value="7days">7 Hari Terakhir</option>
+                  <option value="1month">1 Bulan Terakhir</option>
+                </select>
+              </div>
+            </div>
+            <table id="terlarisTable" class="display w-full">
+              <thead>
+                <tr>
+                  <th>Produk</th>
+                  <th>Category</th>
+                  <th>Jumlah Terjual</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Americano</td>
+                  <td>Coffee</td>
+                  <td>120</td>
+                </tr>
+                <tr>
+                  <td>Teh Tarik</td>
+                  <td>Tea</td>
+                  <td>100</td>
+                </tr>
+                <tr>
+                  <td>Latte</td>
+                  <td>Coffee</td>
+                  <td>95</td>
+                </tr>
+                <tr>
+                  <td>Cappuccino</td>
+                  <td>Coffee</td>
+                  <td>85</td>
+                </tr>
+                <tr>
+                  <td>Espresso</td>
+                  <td>Coffee</td>
+                  <td>80</td>
+                </tr>
+                <tr>
+                  <td>Green Tea Latte</td>
+                  <td>Tea</td>
+                  <td>75</td>
+                </tr>
+                <tr>
+                  <td>Mocha</td>
+                  <td>Coffee</td>
+                  <td>70</td>
+                </tr>
+                <tr>
+                  <td>Matcha</td>
+                  <td>Tea</td>
+                  <td>68</td>
+                </tr>
+                <tr>
+                  <td>Flat White</td>
+                  <td>Coffee</td>
+                  <td>65</td>
+                </tr>
+                <tr>
+                  <td>Caramel Macchiato</td>
+                  <td>Coffee</td>
+                  <td>62</td>
+                </tr>
+                <tr>
+                  <td>Black Coffee</td>
+                  <td>Coffee</td>
+                  <td>60</td>
+                </tr>
+                <tr>
+                  <td>Vanilla Latte</td>
+                  <td>Coffee</td>
+                  <td>55</td>
+                </tr>
+                <tr>
+                  <td>Hazelnut Latte</td>
+                  <td>Coffee</td>
+                  <td>50</td>
+                </tr>
+                <tr>
+                  <td>Chai Tea Latte</td>
+                  <td>Tea</td>
+                  <td>48</td>
+                </tr>
+                <tr>
+                  <td>Affogato</td>
+                  <td>Coffee</td>
+                  <td>45</td>
+                </tr>
+                <tr>
+                  <td>Irish Coffee</td>
+                  <td>Coffee</td>
+                  <td>40</td>
+                </tr>
+                <tr>
+                  <td>Turkish Coffee</td>
+                  <td>Coffee</td>
+                  <td>35</td>
+                </tr>
+                <tr>
+                  <td>Ristretto</td>
+                  <td>Coffee</td>
+                  <td>30</td>
+                </tr>
+                <tr>
+                  <td>Frappe</td>
+                  <td>Coffee</td>
+                  <td>28</td>
+                </tr>
+                <tr>
+                  <td>Cold Brew</td>
+                  <td>Coffee</td>
+                  <td>25</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+          <script>
+            $(document).ready(function () {
+              const table = $('#terlarisTable').DataTable();
+
+              $('#dateFilter').on('change', function () {
+                const filter = $(this).val();
+                let startDate;
+                const endDate = new Date();
+
+                if (filter === 'today') {
+                  startDate = new Date();
+                } else if (filter === '7days') {
+                  startDate = new Date();
+                  startDate.setDate(endDate.getDate() - 7);
+                } else if (filter === '1month') {
+                  startDate = new Date();
+                  startDate.setMonth(endDate.getMonth() - 1);
+                } else {
+                  table.search('').draw();
+                  return;
+                }
+
+                // Example logic for filtering (replace with actual date logic as needed)
+                table.rows().every(function () {
+                  const data = this.data();
+                  const dateSold = new Date(data[2]); // Assuming date info in data
+
+                  if (dateSold >= startDate && dateSold <= endDate) {
+                    $(this.node()).show();
+                  } else {
+                    $(this.node()).hide();
+                  }
+                });
+              });
+            });
+          </script>
+
+
+          <!-- Tambahkan JS DataTables -->
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+          <script>
+            $(document).ready(function () {
+              $('#terlarisTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "info": true,
+                "lengthChange": false
+              });
+            });
+          </script>
+
         </div>
       </div>
 
       <div id="quick-access" class="content-page hidden">
         <div class="item flex container mx-auto">
-          <div id="category-grid" class="w-7/12 grid grid-cols-4 overflow-y-auto max-h-[41rem] ">
+          <div id="category-grid" class="w-7/12 grid grid-cols-3 overflow-y-auto max-h-[41rem] ">
             <div class="product-item relative rounded-lg shadow-md text-center cursor-pointer" onclick="openModal()">
               <img src="img/image.png" alt="Produk 1" class="w-full object-cover rounded-t-md" />
               <div
@@ -345,7 +492,7 @@
               <hr />
 
               <!-- Tempat Data -->
-              <div class="overflow-y-auto max-h-52">
+              <div class="overflow-y-auto max-h-52 px-4">
                 <div class="flex justify-between py-2">
                   <span>Item 1</span>
                   <span>Rp. 10,000</span>
@@ -368,18 +515,21 @@
                   <span>- Rp. 5,000</span>
                 </div>
                 <hr class="my-2" />
-                <div class="flex justify-between py-2 font-bold">
-                  <span>Subtotal</span>
-                  <span>Rp. 42,500</span>
-                </div>
               </div>
 
-              <hr class="my-4" />
+              <hr class="mt-4" />
 
               <!-- Grand Total -->
-              <div class="flex gap-2 text-lg">
-                <p class="font-semibold w-1/2">Grand Total :</p>
-                <p class="font-semibold w-1/2">Rp. 50,000</p>
+              <div class="px-4">
+                <div class="flex justify-between  font-bold pt-2">
+                  <span>Subtotal</span>
+                  <span>Rp. 00,000</span>
+                </div>
+                <hr class="my-2" />
+                <div class="flex justify-between  font-bold">
+                  <span>Grand Total</span>
+                  <span>Rp. 00,000</span>
+                </div>
               </div>
 
               <div class="relative mt-3">
@@ -416,6 +566,8 @@
                 onclick="payModal()">
                 Bayar
               </button>
+              <button class="bg-green-500 text-white rounded" onclick="playSound()">Play Sound</button>
+              <audio id="sound" src="./sound/order.mp3"></audio>
             </div>
 
           </div>
@@ -565,19 +717,21 @@
                   <span>Diskon</span>
                   <span>- Rp. 5,000</span>
                 </div>
-                <hr class="my-2" />
-                <div class="flex justify-between py-2 font-bold">
-                  <span>Subtotal</span>
-                  <span>Rp. 42,500</span>
-                </div>
               </div>
 
-              <hr class="my-4" />
+              <hr class="mt-4" />
 
               <!-- Grand Total -->
-              <div class="flex gap-2 text-lg">
-                <p class="font-semibold w-1/2">Grand Total :</p>
-                <p class="font-semibold w-1/2">Rp. 50,000</p>
+              <div class="px-4">
+                <div class="flex justify-between  font-bold pt-2">
+                  <span>Subtotal</span>
+                  <span>Rp. 00,000</span>
+                </div>
+                <hr class="my-2" />
+                <div class="flex justify-between  font-bold">
+                  <span>Grand Total</span>
+                  <span>Rp. 00,000</span>
+                </div>
               </div>
 
               <!-- Buttons -->
@@ -616,6 +770,7 @@
                 onclick="payModal()">
                 Bayar
               </button>
+
             </div>
 
           </div>
@@ -825,7 +980,7 @@
               </div>
               <hr />
               <!-- Tempat Data -->
-              <div class="overflow-y-auto max-h-40">
+              <div class="overflow-y-auto max-h-40 px-4">
                 <div class="flex justify-between py-2">
                   <span>Item 1</span>
                   <span>Rp. 00,000</span>
@@ -835,19 +990,19 @@
                   <span>Diskon</span>
                   <span>- Rp. 00,000</span>
                 </div>
-                <hr class="my-2" />
-                <div class="flex justify-between py-2 font-bold">
+              </div>
+              <hr class="mt-4" />
+              <!-- Grand Total -->
+              <div class="px-4">
+                <div class="flex justify-between  font-bold pt-2">
                   <span>Subtotal</span>
                   <span>Rp. 00,000</span>
                 </div>
-              </div>
-
-              <hr class="my-4" />
-
-              <!-- Grand Total -->
-              <div class="flex gap-2 text-lg">
-                <p class="font-semibold w-1/2">Grand Total :</p>
-                <p class="font-semibold w-1/2">Rp. 50,000</p>
+                <hr class="my-2" />
+                <div class="flex justify-between  font-bold">
+                  <span>Grand Total</span>
+                  <span>Rp. 00,000</span>
+                </div>
               </div>
             </div>
 
@@ -869,6 +1024,8 @@
                 onclick="payModal()">
                 Bayar
               </button>
+              <button class="bg-green-500 text-white rounded" onclick="playSound()">Play Sound</button>
+              <audio id="sound" src="./sound/order.mp3"></audio>
             </div>
 
           </div>
@@ -1757,19 +1914,22 @@
       
       <hr class="my-2" />
       <div class="overflow-y-auto max-h-40">
-        <div class="flex justify-between py-2 font-semibold">
-        <span>Subtotal</span>
-        <span>Rp. ${orderData.subtotal.toLocaleString()}</span>
-      </div>
       <div class="flex justify-between py-2 font-semibold">
         <span>PPN</span>
         <span>Rp. ${orderData.ppn.toLocaleString()}</span>
       </div>
-      <hr class="my-2" />
-      <div class="flex justify-between py-2 text-lg font-semibold">
-        <span>Grand Total :</span>
-        <span>Rp. ${orderData.total.toLocaleString()}</span>
-      </div>
+      <hr class="mt-4" />
+            <div class="px-4">
+                <div class="flex justify-between  font-bold pt-2">
+                  <span>Subtotal</span>
+                  <span>Rp.  ${orderData.subtotal.toLocaleString()}</span>
+                </div>
+                <hr class="my-2" />
+                <div class="flex justify-between  font-bold">
+                  <span>Grand Total</span>
+                  <span>Rp. ${orderData.total.toLocaleString()}</span>
+                </div>
+              </div>
       </div>
     `;
 

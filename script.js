@@ -62,3 +62,8 @@ switchMode.addEventListener("change", function () {
     document.body.classList.remove("dark");
   }
 });
+
+function playSound() {
+    const audio = document.getElementById('sound');
+    audio.play();
+}
